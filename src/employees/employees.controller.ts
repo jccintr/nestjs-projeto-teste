@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete,Query,ValidationPipe 
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { Prisma } from '@prisma/client';
+//import { Prisma } from '@prisma/client';
 
 @Controller('employees')
 export class EmployeesController {
@@ -14,8 +14,8 @@ export class EmployeesController {
   }
 
   @Get()
-  findAll(@Query('role') role?: 'ROLE_ADMIN' | 'ROLE_CLIENT'){
-    return this.employeesService.findAll(role);
+  findAll(@Query('page') page?: string,@Query('size') size?: string){
+    return this.employeesService.findAllPaginated(Number(page), Number(size));
   }
 
   @Get(':id')
